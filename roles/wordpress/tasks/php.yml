@@ -8,3 +8,15 @@
     file: external_repos
     state: present
   
+- name: install dependence package
+  yum:
+    name:
+      - php
+      - php-common
+      - php-mysql
+      - php-gd
+      - php-xml
+      - php-mbstring
+      - php-mcrypt
+      - php-xmlrpc
+    state: present
