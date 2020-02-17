@@ -49,3 +49,9 @@
     login_user: root
     login_password: admin
 
+- name: add nginx to firewalld
+  firewalld:
+      port: 3306/tcp
+      permanent: yes 
+      state: enabled 
+      immediate: yes 
