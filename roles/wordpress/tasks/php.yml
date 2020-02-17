@@ -1,0 +1,10 @@
+---
+- name: add repo php
+  yum_repository:
+    name: remi-php72
+    baseurl: https://download.fedoraproject.org/pub/epel/$releasever/$basearch
+    description: add repo php
+    enabled: yes
+    file: external_repos
+    state: present
+  
