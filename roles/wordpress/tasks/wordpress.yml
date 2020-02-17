@@ -6,10 +6,10 @@
     remote_src: yes
     creates: "/var/www/wordpress"
 - name: change file name [copy new file]
-    copy:
-        remote_src: true
-        src: /var/www/html/wordpress/wp-config-sample.php
-        dest: /var/www/html/wordpress/wp-config.php
+  copy:
+    remote_src: true
+    src: /var/www/html/wordpress/wp-config-sample.php
+    dest: /var/www/html/wordpress/wp-config.php
 
 - name: edit file
   lineinfile:
