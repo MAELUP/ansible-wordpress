@@ -1,2 +1,6 @@
 ---
 # tasks file for wordpress
+- import_tasks: ./php.yml        
+- import_tasks: ./mysql.yml     
+- import_tasks: ./wordpress.yml
+- import_tasks: ./nginx.yml      

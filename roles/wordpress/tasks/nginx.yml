@@ -12,7 +12,7 @@
 
 - name: sent nginx file config to remote server
   copy: 
-    src: ../conf/nginx.conf 
+    src: ../templates/nginx.conf
     dest: /etc/nginx/conf.d/nginx.wordpress.conf
     owner: nginx 
     group: nginx
@@ -21,7 +21,7 @@
 - name: restart nginx 
   service:
     name: nginx
-    state: restart
+    state: restarted
 
 - name: add nginx to firewalld
   firewalld:

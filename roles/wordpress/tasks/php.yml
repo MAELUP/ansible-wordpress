@@ -6,8 +6,14 @@
     description: add repo php
     enabled: yes
     file: external_repos
+    gpgcheck: no
     state: present
-  
+
+- name: install epel-release 
+  yum: 
+   name: epel-release 
+   state: latest
+ 
 - name: install dependence package
   yum:
     name:
@@ -19,4 +25,5 @@
       - php-mbstring
       - php-mcrypt
       - php-xmlrpc
+      - MySQL-python 
     state: present

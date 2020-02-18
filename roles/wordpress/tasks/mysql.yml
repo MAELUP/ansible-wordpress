@@ -17,6 +17,7 @@
     name: root
     password: "admin"
     state: present
+  ignore_errors: yes
     
 - name: remove all anonymous user accounts 
   mysql_user:
@@ -35,23 +36,24 @@
 
 - name: Create database wordpress 
   mysql_db:
-    name: wordpress 
+    name: wordpressdb 
     state: present
     login_user: root
     login_password: admin
 
 - name: Create wordpress user 
   mysql_user:
-    name: wp_user
-    password: wp_pass
-    priv: "wordpress.*:ALL"
+    name: wp-user
+    password: wp-pass
+    priv: "wordpressdb.*:ALL"
+    host: 192.168.145.161
     state: present
     login_user: root
     login_password: admin
 
-- name: add nginx to firewalld
+- name: add mysql to firewalld
   firewalld:
-      port: 3306/tcp
-      permanent: yes 
-      state: enabled 
-      immediate: yes 
+    port: 3306/tcp
+    permanent: yes 
+    state: enabled 
+    immediate: yes 

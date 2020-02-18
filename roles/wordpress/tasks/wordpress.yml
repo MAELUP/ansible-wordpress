@@ -8,15 +8,16 @@
 - name: change file name [copy new file]
   copy:
     remote_src: true
-    src: /var/www/html/wordpress/wp-config-sample.php
-    dest: /var/www/html/wordpress/wp-config.php
+    src: /var/www/wordpress/wp-config-sample.php
+    dest: /var/www/wordpress/wp-config.php
 
 - name: edit file
   lineinfile:
-    path: /var/www/html/wordpress/wp-config.php
+    path: /var/www/wordpress/wp-config.php
     regexp: "{{item.regexp}}"
     line: "{{item.line}}"
-    loop:
-     - { regexp: ^define\('DB_NAME', line: "define('DB_NAME', 'wordpress');" }
-     - { regexp: ^define\('DB_USER', line: "define('DB_USER' , 'ansible');" }
-     - { regexp: ^define\('DB_PASSWORD', line: "define('DB_PASSWORD' , 'mypassword');" }
+  loop:
+   - { regexp: ^define\('DB_NAME', line: "define('DB_NAME', 'wordpressdb');" }
+   - { regexp: ^define\('DB_USER', line: "define('DB_USER' , 'wp-user');" }
+   - { regexp: ^define\('DB_PASSWORD', line: "define('DB_PASSWORD' , 'wp-pass');" } 
+   - { regexp: ^define\('DB_HOST', line: "define('DB_HOST' , '192.168.145.161');" }
