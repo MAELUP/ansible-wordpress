@@ -1,20 +1,22 @@
 ---
-- name: add repo php
-  yum_repository:
-    name: remi-php72
-    baseurl: https://download.fedoraproject.org/pub/epel/$releasever/$basearch
-    description: add repo php
-    enabled: yes
-    file: external_repos
-    gpgcheck: no
-    state: present
-
-- name: install epel-release 
-  yum: 
-   name: epel-release 
-   state: latest
+# - name: add repo php
+#   yum_repository:
+#     name: remi-php72
+#     baseurl: https://download.fedoraproject.org/pub/epel/$releasever/$basearch
+#     description: add repo php
+#     enabled: yes
+#     file: external_repos
+#     gpgcheck: no
+#     state: present
  
-- name: install dependence package
+- name: add epel and remi repository 
+  yum: 
+   name: 
+    - https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+    - https://rpms.remirepo.net/enterprise/remi-release-7.rpm
+   state: present
+
+- name: install php
   yum:
     name:
       - php
@@ -25,5 +27,36 @@
       - php-mbstring
       - php-mcrypt
       - php-xmlrpc
-      - MySQL-python 
+      - php-fpm 
+      - php-mysqlnd 
+      - php-zip 
+      - php-devel 
+      - php-curl  
+      - php-pear 
+      - php-bcmath 
+      - php-json
+    enablerepo: remi-php74  
     state: present
+
+- name: update 
+  yum: 
+   name: '*'
+   state: latest
+  
+- name: conf php-fpm
+  lineinfile: 
+    path: /etc/php-fpm.d/www.conf 
+    regexp: "{{item.regexp}}"
+    line: "{{item.line}}"
+  loop:
+   - { regexp: ^user =, line: "user = nginx" }
+   - { regexp: ^group =, line: "group = nginx" }
+   - { regexp: ^listen =, line: "listen = /run/php-fpm/www.sock" } 
+   - { regexp: ^listen.owner =, line: "listen.owner = nginx" }
+   - { regexp: ^listen.group =, line: "listen.group = nginx" }
+
+- name: start php-fpm 
+  service: 
+   name: php-fpm
+   state: started
+   enable: yes

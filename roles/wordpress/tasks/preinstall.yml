@@ -1,0 +1,16 @@
+---
+- name: install epel-release 
+  yum: 
+   name: epel-release 
+   state: present
+
+- name: install yum utils
+  yum: 
+   name: yum-utils
+   state: present
+
+- name: update all package
+  yum: 
+   name: '*'
+   state: latest 
+
