@@ -60,3 +60,8 @@
    name: php-fpm
    state: started
    enable: yes
+  
+- name: Change file php-fpm permissions
+  file:
+    path: /var/run/php-fpm/www.sock
+    mode: '0777'
